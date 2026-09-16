@@ -4,6 +4,7 @@ import MarketPrices from './components/home/MarketPrices'
 import VegetableCategories from './components/home/VegetableCategories'
 import { MarketFilterProvider } from './context/MarketFilterContext'
 import WhyChooseUs from './components/home/WhyChooseUs'
+import TrustedCustomers from './components/home/TrustedCustomers'
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <VegetableCategories />
 
           <WhyChooseUs />
+
+          <TrustedCustomers />
 
           <section
             id="about"
