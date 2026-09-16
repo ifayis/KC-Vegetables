@@ -3,6 +3,7 @@ import Hero from './components/home/Hero'
 import MarketPrices from './components/home/MarketPrices'
 import VegetableCategories from './components/home/VegetableCategories'
 import { MarketFilterProvider } from './context/MarketFilterContext'
+import WhyChooseUs from './components/home/WhyChooseUs'
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <MarketPrices />
 
           <VegetableCategories />
+
+          <WhyChooseUs />
 
           <section
             id="about"

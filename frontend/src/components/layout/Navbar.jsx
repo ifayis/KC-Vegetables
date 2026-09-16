@@ -13,6 +13,7 @@ const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Prices', href: '#prices' },
   { label: 'Vegetables', href: '#vegetables' },
+  { label: 'Why Us', href: '#why-us' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
