@@ -73,7 +73,7 @@ function Navbar() {
           onClick={closeMobileMenu}
           className="group flex items-center gap-2.5"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2E7D32] text-xl shadow-sm transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2E7D32] text-xl shadow-sm transition-transform duration-300 group-hover:rotate-3 group-:scale-105">
             🌿
           </span>
 
@@ -91,7 +91,7 @@ function Navbar() {
             <a
               key={item.label}
               href={item.href}
-              className="relative text-sm font-medium text-[#4B5563] transition-colors duration-200 hover:text-[#2E7D32] dark:text-gray-300 dark:hover:text-[#66BB6A]"
+              className="relative text-sm font-medium text-[#4B5563] transition-colors duration-200 hover:text-[#2E7D32] dark:text-gray-300 dark::text-[#66BB6A]"
             >
               {item.label}
             </a>
@@ -175,7 +175,7 @@ function Navbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-[#4B5563] transition-all duration-200 hover:scale-105 hover:bg-[#F0F7F0] hover:text-[#2E7D32] dark:text-gray-300 dark:hover:bg-[#17231A] dark:hover:text-[#66BB6A]"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-[#4B5563] transition-all duration-200 hover:scale-105 :bg-[#F0F7F0] hover:text-[#2E7D32] dark:text-gray-300 dark:hover:bg-[#17231A] dark:hover:text-[#66BB6A]"
             aria-label={`Switch to ${
               theme === 'light' ? 'dark' : 'light'
             } mode`}

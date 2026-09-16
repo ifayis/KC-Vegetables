@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { useMarketFilter } from '../../context/MarketFilterContext'
 
 const categories = [
@@ -10,6 +9,7 @@ const categories = [
     description: 'Fresh greens selected daily.',
     image: '/vegetables/spinach.jpg',
     size: 'large',
+    filter: 'Leafy Vegetables',
   },
   {
     id: 'root',
@@ -17,6 +17,7 @@ const categories = [
     description: 'Naturally fresh and full of flavour.',
     image: '/vegetables/root-vegetables.jpg',
     size: 'large',
+    filter: 'Root Vegetables',
   },
   {
     id: 'everyday',
@@ -24,11 +25,25 @@ const categories = [
     description: 'The vegetables you reach for every day.',
     image: '/vegetables/everyday-vegetables.jpg',
     size: 'wide',
+    filter: 'All',
   },
 ]
 
 function VegetableCategories() {
-    const { setSelectedCategory } = useMarketFilter()
+  const { setSelectedCategory } = useMarketFilter()
+
+  const handleCategoryClick = (filter) => {
+    setSelectedCategory(filter)
+
+    requestAnimationFrame(() => {
+      document
+        .getElementById('prices')
+        ?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+    })
+  }
 
   return (
     <section
@@ -65,120 +80,108 @@ function VegetableCategories() {
         {/* Category grid */}
         <div className="mt-12 grid gap-5 md:grid-cols-2">
 
-{categories.slice(0, 2).map((category, index) => (
-  <CategoryCard
-    key={category.id}
-    category={category}
-    index={index}
-    onClick={() => {
-      setSelectedCategory(
-        category.id === 'leafy'
-          ? 'Leafy Vegetables'
-          : 'Root Vegetables',
-      )
+          {categories.slice(0, 2).map((category, index) => (
+            <CategoryCard
+              key={category.id}
+              category={category}
+              index={index}
+              onClick={() =>
+                handleCategoryClick(category.filter)
+              }
+            />
+          ))}
 
-      document
-        .getElementById('prices')
-        ?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        })
-    }}
-  />
-))}
           <div className="md:col-span-2">
-<CategoryCard
-  category={categories[2]}
-  index={2}
-  wide
-  onClick={() => {
-    setSelectedCategory('All')
+            <CategoryCard
+              category={categories[2]}
+              index={2}
+              wide
+              onClick={() =>
+                handleCategoryClick(categories[2].filter)
+              }
+            />
+          </div>
 
-    document
-      .getElementById('prices')
-      ?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-  }}
-/>          </div>
         </div>
       </div>
     </section>
   )
 }
 
-function CategoryCard({ category, index, wide = false, onClick }) {
+function CategoryCard({
+  category,
+  index,
+  wide = false,
+  onClick,
+}) {
   return (
-<Link
-  to={`/prices?category=${encodeURIComponent(category.id)}`}
-  className="block"
->
-  <motion.article
-    onClick={onClick}
-  role="button"
-  tabIndex={0}
-  onKeyDown={(event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      onClick()
-    }
-  }}
-    initial={{
-      opacity: 0,
-      y: 30,
-    }}
-    whileInView={{
-      opacity: 1,
-      y: 0,
-    }}
-    viewport={{
-      once: true,
-      amount: 0.15,
-    }}
-    transition={{
-      delay: index * 0.1,
-      duration: 0.6,
-    }}
-    className={`group relative overflow-hidden rounded-[1.75rem] ${
-      wide ? 'min-h-[320px]' : 'min-h-[380px]'
-    }`}
-  >
-    <img
-      src={category.image}
-      alt={category.title}
-      loading="lazy"
-      className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-    />
-
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5" />
-
-    <div className="relative flex h-full flex-col justify-end p-6 sm:p-8">
-      <div className="max-w-md">
-        <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-[#A5D6A7]">
-          Fresh produce
-        </p>
-
-        <h3 className="font-serif text-3xl font-medium text-white sm:text-4xl">
-          {category.title}
-        </h3>
-
-        <p className="mt-2 max-w-sm text-sm leading-6 text-white/70">
-          {category.description}
-        </p>
-      </div>
-
-      <div
-        className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:border-white/60 group-hover:bg-white/20 sm:right-8 sm:top-8"
+    <a
+      href="#prices"
+      onClick={onClick}
+      className="block rounded-[1.75rem] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#66BB6A] focus-visible:ring-offset-4 dark:focus-visible:ring-offset-[#111C14]"
+      aria-label={`View ${category.title}`}
+    >
+      <motion.article
+        initial={{
+          opacity: 0,
+          y: 30,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+          amount: 0.15,
+        }}
+        transition={{
+          delay: index * 0.1,
+          duration: 0.6,
+        }}
+        className={`group relative overflow-hidden rounded-[1.75rem] ${
+          wide ? 'min-h-[320px]' : 'min-h-[380px]'
+        }`}
       >
-        <ArrowUpRight
-          size={19}
-          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        {/* Image */}
+        <img
+          src={category.image}
+          alt={category.title}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
         />
-      </div>
-    </div>
-  </motion.article>
-</Link>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5" />
+
+        {/* Content */}
+        <div className="relative flex h-full flex-col justify-end p-6 sm:p-8">
+          <div className="max-w-md">
+            <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-[#A5D6A7]">
+              Fresh produce
+            </p>
+
+            <h3 className="font-serif text-3xl font-medium text-white sm:text-4xl">
+              {category.title}
+            </h3>
+
+            <p className="mt-2 max-w-sm text-sm leading-6 text-white/70">
+              {category.description}
+            </p>
+          </div>
+
+          {/* Arrow */}
+          <div
+            className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:border-white/60 group-hover:bg-white/20 sm:right-8 sm:top-8"
+            aria-hidden="true"
+          >
+            <ArrowUpRight
+              size={19}
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </div>
+        </div>
+      </motion.article>
+    </a>
   )
 }
 
