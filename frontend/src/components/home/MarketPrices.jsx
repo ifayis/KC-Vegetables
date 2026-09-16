@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useMarketFilter } from '../../context/MarketFilterContext'
 import { motion } from 'framer-motion'
 import {
     ArrowDownRight,
@@ -18,7 +19,10 @@ const categories = [
 
 function MarketPrices() {
     const [searchTerm, setSearchTerm] = useState('')
-    const [selectedCategory, setSelectedCategory] = useState('All')
+const {
+  selectedCategory,
+  setSelectedCategory,
+} = useMarketFilter()
 
     const filteredVegetables = useMemo(() => {
         const normalizedSearch = searchTerm.trim().toLowerCase()
