@@ -7,9 +7,11 @@ import WhyChooseUs from './components/home/WhyChooseUs'
 import TrustedCustomers from './components/home/TrustedCustomers'
 import AboutContact from './components/home/AboutContact'
 import Footer from './components/layout/Footer'
+import { LanguageProvider } from './context/LanguageContext'
 
 function App() {
   return (
+     <LanguageProvider>
     <MarketFilterProvider>
       <div className="min-h-screen bg-[#FFFDF5] text-[#1F2937] dark:bg-[#0F1A12] dark:text-gray-100">
         <Navbar />
@@ -30,9 +32,10 @@ function App() {
         </main>
 
         <Footer />
-        
+
       </div>
     </MarketFilterProvider>
+     </LanguageProvider>
   )
 }
 

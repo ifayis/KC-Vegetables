@@ -8,6 +8,7 @@ import {
   ChevronDown,
 } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
+import { useLanguage } from '../../context/LanguageContext'
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -18,14 +19,42 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ]
 
+const languages = [
+  {
+    code: 'en',
+    label: 'English',
+    shortLabel: 'EN',
+  },
+  {
+    code: 'ml',
+    label: 'മലയാളം',
+    shortLabel: 'മലയാളം',
+  },
+  {
+    code: 'hi',
+    label: 'हिन्दी',
+    shortLabel: 'हिन्दी',
+  },
+]
+
 function Navbar() {
   const { theme, toggleTheme } = useTheme()
+  const { language, setLanguage } = useLanguage()
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [languageOpen, setLanguageOpen] = useState(false)
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false)
   }
+
+  const handleLanguageChange = (languageCode) => {
+    setLanguage(languageCode)
+    setLanguageOpen(false)
+  }
+
+  const currentLanguage =
+    languages.find((item) => item.code === language) || languages[0]
 
   return (
     <motion.header
@@ -49,7 +78,10 @@ function Navbar() {
           </span>
 
           <span className="hidden text-lg font-bold tracking-tight text-[#1F2937] sm:block dark:text-white">
-            KC <span className="text-[#2E7D32] dark:text-[#66BB6A]">Vegetables</span>
+            KC{' '}
+            <span className="text-[#2E7D32] dark:text-[#66BB6A]">
+              Vegetables
+            </span>
           </span>
         </a>
 
@@ -68,16 +100,21 @@ function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-2 sm:flex">
+
           {/* Language */}
           <div className="relative">
             <button
               type="button"
-              onClick={() => setLanguageOpen((current) => !current)}
+              onClick={() =>
+                setLanguageOpen((current) => !current)
+              }
               className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-[#4B5563] transition-colors hover:bg-[#F0F7F0] hover:text-[#2E7D32] dark:text-gray-300 dark:hover:bg-[#17231A] dark:hover:text-[#66BB6A]"
               aria-expanded={languageOpen}
               aria-haspopup="menu"
+              aria-label="Select language"
             >
-              <span>EN</span>
+              <span>{currentLanguage.shortLabel}</span>
+
               <ChevronDown
                 size={15}
                 className={`transition-transform duration-200 ${
@@ -89,23 +126,46 @@ function Navbar() {
             <AnimatePresence>
               {languageOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -5, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -5, scale: 0.97 }}
+                  initial={{
+                    opacity: 0,
+                    y: -5,
+                    scale: 0.97,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -5,
+                    scale: 0.97,
+                  }}
                   transition={{ duration: 0.15 }}
                   className="absolute right-0 mt-2 w-36 overflow-hidden rounded-xl border border-[#E5E7EB] bg-white p-1 shadow-lg dark:border-[#2A3A2D] dark:bg-[#17231A]"
                   role="menu"
                 >
-                  {['English', 'മലയാളം', 'हिन्दी'].map((language) => (
-                    <button
-                      key={language}
-                      type="button"
-                      className="w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[#F0F7F0] dark:hover:bg-[#213322]"
-                      role="menuitem"
-                    >
-                      {language}
-                    </button>
-                  ))}
+                  {languages.map((item) => {
+                    const isActive = language === item.code
+
+                    return (
+                      <button
+                        key={item.code}
+                        type="button"
+                        onClick={() =>
+                          handleLanguageChange(item.code)
+                        }
+                        className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                          isActive
+                            ? 'bg-[#F0F7F0] font-semibold text-[#2E7D32] dark:bg-[#213322] dark:text-[#66BB6A]'
+                            : 'text-[#4B5563] hover:bg-[#F0F7F0] dark:text-gray-300 dark:hover:bg-[#213322]'
+                        }`}
+                        role="menuitem"
+                      >
+                        {item.label}
+                      </button>
+                    )
+                  })}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -115,7 +175,7 @@ function Navbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-[#4B5563] transition-all duration-200 hover:bg-[#F0F7F0] hover:text-[#2E7D32] hover:scale-105 dark:text-gray-300 dark:hover:bg-[#17231A] dark:hover:text-[#66BB6A]"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-[#4B5563] transition-all duration-200 hover:scale-105 hover:bg-[#F0F7F0] hover:text-[#2E7D32] dark:text-gray-300 dark:hover:bg-[#17231A] dark:hover:text-[#66BB6A]"
             aria-label={`Switch to ${
               theme === 'light' ? 'dark' : 'light'
             } mode`}
@@ -123,9 +183,21 @@ function Navbar() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
                 key={theme}
-                initial={{ rotate: -45, opacity: 0, scale: 0.5 }}
-                animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                exit={{ rotate: 45, opacity: 0, scale: 0.5 }}
+                initial={{
+                  rotate: -45,
+                  opacity: 0,
+                  scale: 0.5,
+                }}
+                animate={{
+                  rotate: 0,
+                  opacity: 1,
+                  scale: 1,
+                }}
+                exit={{
+                  rotate: 45,
+                  opacity: 0,
+                  scale: 0.5,
+                }}
                 transition={{ duration: 0.2 }}
               >
                 {theme === 'light' ? (
@@ -148,6 +220,21 @@ function Navbar() {
 
         {/* Mobile actions */}
         <div className="flex items-center gap-1 sm:hidden">
+
+          {/* Mobile Language */}
+          <button
+            type="button"
+            onClick={() =>
+              setLanguageOpen((current) => !current)
+            }
+            className="flex h-10 min-w-10 items-center justify-center rounded-xl px-2 text-sm font-semibold text-[#4B5563] transition-colors hover:bg-[#F0F7F0] dark:text-gray-300 dark:hover:bg-[#17231A]"
+            aria-label="Select language"
+            aria-expanded={languageOpen}
+          >
+            {currentLanguage.shortLabel}
+          </button>
+
+          {/* Theme */}
           <button
             type="button"
             onClick={toggleTheme}
@@ -163,26 +250,89 @@ function Navbar() {
             )}
           </button>
 
+          {/* Menu */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((current) => !current)}
+            onClick={() =>
+              setMobileMenuOpen((current) => !current)
+            }
             className="flex h-10 w-10 items-center justify-center rounded-xl text-[#1F2937] transition-colors hover:bg-[#F0F7F0] dark:text-white dark:hover:bg-[#17231A]"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={
+              mobileMenuOpen ? 'Close menu' : 'Open menu'
+            }
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? (
+              <X size={22} />
+            ) : (
+              <Menu size={22} />
+            )}
           </button>
         </div>
       </nav>
+
+      {/* Desktop/Small language dropdown for mobile */}
+      <AnimatePresence>
+        {languageOpen && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -5,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -5,
+            }}
+            className="absolute right-4 top-16 z-50 w-36 overflow-hidden rounded-xl border border-[#E5E7EB] bg-white p-1 shadow-lg sm:hidden dark:border-[#2A3A2D] dark:bg-[#17231A]"
+          >
+            {languages.map((item) => {
+              const isActive = language === item.code
+
+              return (
+                <button
+                  key={item.code}
+                  type="button"
+                  onClick={() =>
+                    handleLanguageChange(item.code)
+                  }
+                  className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                    isActive
+                      ? 'bg-[#F0F7F0] font-semibold text-[#2E7D32] dark:bg-[#213322] dark:text-[#66BB6A]'
+                      : 'text-[#4B5563] hover:bg-[#F0F7F0] dark:text-gray-300 dark:hover:bg-[#213322]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            initial={{
+              height: 0,
+              opacity: 0,
+            }}
+            animate={{
+              height: 'auto',
+              opacity: 1,
+            }}
+            exit={{
+              height: 0,
+              opacity: 0,
+            }}
+            transition={{
+              duration: 0.25,
+              ease: 'easeInOut',
+            }}
             className="overflow-hidden border-t border-[#E5E7EB] dark:border-[#2A3A2D] sm:hidden"
           >
             <div className="mx-auto max-w-7xl px-4 py-4">
