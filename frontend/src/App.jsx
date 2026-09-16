@@ -1,5 +1,6 @@
 import Navbar from './components/layout/Navbar'
 import Hero from './components/home/Hero'
+import MarketPrices from './components/home/MarketPrices'
 
 function App() {
   return (
@@ -9,12 +10,7 @@ function App() {
       <main>
         <Hero />
 
-        <section
-          id="prices"
-          className="min-h-screen"
-        >
-          <h2>Prices</h2>
-        </section>
+        <MarketPrices />
 
         <section
           id="vegetables"

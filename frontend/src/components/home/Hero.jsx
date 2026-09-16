@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import tomatoImage from '../../assets/vegetables/tomato.webp'
-import onionImage from '../../assets/vegetables/onion.webp'
-import potatoImage from '../../assets/vegetables/potato.jpg'
-import carrotImage from '../../assets/vegetables/carrot.jpg'
-import cabbageImage from '../../assets/vegetables/cabbage.jpg'
-import broccoliImage from '../../assets/vegetables/broccoli.webp'
+import tomatoImage from '/vegetables/tomato.webp'
+import onionImage from '/vegetables/onion.webp'
+import potatoImage from '/vegetables/potato.jpg'
+import carrotImage from '/vegetables/carrot.jpg'
+import cabbageImage from '/vegetables/cabbage.jpg'
+import broccoliImage from '/vegetables/broccoli.webp'
 
 import { AnimatePresence, motion } from 'framer-motion'
 import {
