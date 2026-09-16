@@ -6,7 +6,7 @@ export const vegetables = [
     price: 36,
     unit: 'kg',
     previousPrice: 35,
-    image: '/vegetables/tomato.webp',
+    image: '/vegetables/tomato.jpg',
   },
   {
     id: 'onion',

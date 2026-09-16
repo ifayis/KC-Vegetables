@@ -5,6 +5,8 @@ import VegetableCategories from './components/home/VegetableCategories'
 import { MarketFilterProvider } from './context/MarketFilterContext'
 import WhyChooseUs from './components/home/WhyChooseUs'
 import TrustedCustomers from './components/home/TrustedCustomers'
+import AboutContact from './components/home/AboutContact'
+import Footer from './components/layout/Footer'
 
 function App() {
   return (
@@ -23,20 +25,12 @@ function App() {
 
           <TrustedCustomers />
 
-          <section
-            id="about"
-            className="min-h-screen"
-          >
-            <h2>About</h2>
-          </section>
+          <AboutContact />
 
-          <section
-            id="contact"
-            className="min-h-screen"
-          >
-            <h2>Contact</h2>
-          </section>
         </main>
+
+        <Footer />
+        
       </div>
     </MarketFilterProvider>
   )

@@ -49,7 +49,7 @@ function Navbar() {
           </span>
 
           <span className="hidden text-lg font-bold tracking-tight text-[#1F2937] sm:block dark:text-white">
-            UMS <span className="text-[#2E7D32] dark:text-[#66BB6A]">Vegetables</span>
+            KC <span className="text-[#2E7D32] dark:text-[#66BB6A]">Vegetables</span>
           </span>
         </a>
 

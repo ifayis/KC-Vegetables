@@ -68,7 +68,7 @@ function WhyChooseUs() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-[#2E7D32]/15 bg-[#2E7D32]/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#2E7D32] dark:border-[#66BB6A]/20 dark:bg-[#66BB6A]/10 dark:text-[#81C784]">
             <Leaf size={14} />
-            Why UMS Vegetables
+            Why KC Vegetables
           </span>
 
           <h2 className="mt-6 font-serif text-4xl leading-tight text-[#1F2937] dark:text-white sm:text-5xl">
