@@ -20,8 +20,11 @@ function Footer() {
               className="inline-flex items-center gap-2 text-xl font-bold tracking-tight text-[#1F2937] dark:text-white"
             >
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2E7D32] text-white">
-                <Leaf size={18} />
-              </span>
+                <img
+                  src="/favicon.png"
+                  alt="KC Vegetables logo"
+                  className="h-full w-full object-contain"
+                />              </span>
               KC Vegetables
             </a>
 

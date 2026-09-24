@@ -73,9 +73,12 @@ function Navbar() {
           onClick={closeMobileMenu}
           className="group flex items-center gap-2.5"
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2E7D32] text-xl shadow-sm transition-transform duration-300 group-hover:rotate-3 group-:scale-105">
-            🌿
-          </span>
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2E7D32] text-xl shadow-sm transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105">
+            <img
+              src="/favicon.png"
+              alt="KC Vegetables logo"
+              className="h-full w-full object-contain"
+            />          </span>
 
           <span className="hidden text-lg font-bold tracking-tight text-[#1F2937] sm:block dark:text-white">
             KC{' '}
@@ -117,9 +120,8 @@ function Navbar() {
 
               <ChevronDown
                 size={15}
-                className={`transition-transform duration-200 ${
-                  languageOpen ? 'rotate-180' : ''
-                }`}
+                className={`transition-transform duration-200 ${languageOpen ? 'rotate-180' : ''
+                  }`}
               />
             </button>
 
@@ -155,11 +157,10 @@ function Navbar() {
                         onClick={() =>
                           handleLanguageChange(item.code)
                         }
-                        className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                          isActive
+                        className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${isActive
                             ? 'bg-[#F0F7F0] font-semibold text-[#2E7D32] dark:bg-[#213322] dark:text-[#66BB6A]'
                             : 'text-[#4B5563] hover:bg-[#F0F7F0] dark:text-gray-300 dark:hover:bg-[#213322]'
-                        }`}
+                          }`}
                         role="menuitem"
                       >
                         {item.label}
@@ -176,9 +177,8 @@ function Navbar() {
             type="button"
             onClick={toggleTheme}
             className="flex h-10 w-10 items-center justify-center rounded-xl text-[#4B5563] transition-all duration-200 hover:scale-105 :bg-[#F0F7F0] hover:text-[#2E7D32] dark:text-gray-300 dark:hover:bg-[#17231A] dark:hover:text-[#66BB6A]"
-            aria-label={`Switch to ${
-              theme === 'light' ? 'dark' : 'light'
-            } mode`}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'
+              } mode`}
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -239,9 +239,8 @@ function Navbar() {
             type="button"
             onClick={toggleTheme}
             className="flex h-10 w-10 items-center justify-center rounded-xl text-[#4B5563] transition-colors hover:bg-[#F0F7F0] dark:text-gray-300 dark:hover:bg-[#17231A]"
-            aria-label={`Switch to ${
-              theme === 'light' ? 'dark' : 'light'
-            } mode`}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'
+              } mode`}
           >
             {theme === 'light' ? (
               <Moon size={19} />
@@ -299,11 +298,10 @@ function Navbar() {
                   onClick={() =>
                     handleLanguageChange(item.code)
                   }
-                  className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                    isActive
+                  className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${isActive
                       ? 'bg-[#F0F7F0] font-semibold text-[#2E7D32] dark:bg-[#213322] dark:text-[#66BB6A]'
                       : 'text-[#4B5563] hover:bg-[#F0F7F0] dark:text-gray-300 dark:hover:bg-[#213322]'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
